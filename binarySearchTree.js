@@ -1,4 +1,4 @@
-var node = function(value) {
+var Node = function(value) {
   this.value = value;
   this.left = null;
   this.right = null;
@@ -18,7 +18,7 @@ BinarySearchTree.prototype.add = function(val) {
   }
 
   var current = root;
-  var newNode = newNode(val);
+  var newNode = new Node(val);
 
   while (current) {
     if (val < current.value) {
@@ -33,7 +33,7 @@ BinarySearchTree.prototype.add = function(val) {
         current.right = newNode;
       break;
       } else {
-      curent = current.right;
+      current = current.right;
           }
         }
       }
@@ -141,6 +141,22 @@ BinarySearchTree.prototype.remove = function(val) {
   }
 };
 
+BinarySearchTree.prototype.getMinNode = function(val) {
+  var current = this.root;
+  while (current.left !== null) {
+    current = current.left;
+  }
+  return current.value;
+};
+
+BinarySearchTree.prototype.getMaxNode = function(val) {
+  var current = this.root;
+  while (current.right !== null) {
+    current = current.right;
+  }
+  return current.value;
+};
+
 BinarySearchTree.prototype.size = function() {
   var length = 0;
 
@@ -148,15 +164,6 @@ BinarySearchTree.prototype.size = function() {
     length++;
   });
   return length;
-};
-
-BinarySearchTree.prototype.inOrderArray = function() {
-  var result = [];
-
-  this.inOrderTraversal(function(node) {
-    result.push(node.value);
-  });
-  return result;
 };
 
 BinarySearchTree.prototype.inOrderTraversal = function(evaluate) {
@@ -175,18 +182,9 @@ BinarySearchTree.prototype.inOrderTraversal = function(evaluate) {
   inOrder(this.root);
 };
 
-BinarySearchTree.prototype.preOrderArray = function() {
-  var result = [];
-
-  this.preOrderTraversal(function(node) {
-    result.push(node.value);
-  });
-  return result;
-};
-
 BinarySearchTree.prototype.preOrderTraversal = function(evaluate) {
   function preOrder(node) {
-    evaluate.call(this.node);
+    evaluate.call(this, node);
     if (node) {
       if (node.left !== null) {
         preOrder(node.left);
@@ -199,15 +197,6 @@ BinarySearchTree.prototype.preOrderTraversal = function(evaluate) {
   preOrder(this.root);
 };
 
-BinarySearchTree.prototype.postOrderArray = function() {
-  var result = [];
-
-  this.postOrderTraversal(function(node) {
-    result.push(node.value);
-  });
-  return result;
-};
-
 BinarySearchTree.prototype.postOrderTraversal = function(evaluate) {
   function postOrder(node) {
     if (node) {
@@ -217,17 +206,19 @@ BinarySearchTree.prototype.postOrderTraversal = function(evaluate) {
       if (node.right !== null) {
         postOrder(node.right);
       }
-      evaluate.call(this.node);
+      evaluate.call(this, node);
     }
   }
   postOrder(this.root);
 };
 
+BinarySearchTree.prototype.toArray = function(traversal) {
+  var result = [];
+
+  traversal.call(this, function(node) {
+    result.push(node.value);
+  });
+  return result;
+};
+
 var bst = new BinarySearchTree();
-bst.add(17);
-bst.add(11);
-bst.add(43);
-bst.add(9);
-bst.add(65);
-bst.remove(43);
-console.log(bst);
