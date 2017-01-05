@@ -3,11 +3,11 @@ function Stack() {
     this._storage = [];
 }
 
-Queue.prototype.isEmpty = function () {
+Stack.prototype.isEmpty = function () {
     return this._storage.length === 0;
 };
 
-Queue.prototype.peek = function () {
+Stack.prototype.peek = function () {
     return !this.isEmpty() ? this._storage[0] : undefined;
 };
 
