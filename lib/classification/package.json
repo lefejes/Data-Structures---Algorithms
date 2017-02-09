@@ -1,0 +1,16 @@
+{
+  "name": "classification_algo",
+  "version": "1.0.0",
+  "description": "algorithms for classification in machine learning",
+  "main": "naive_bayes.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "categorize",
+    "classify",
+    "classifier"
+  ],
+  "author": "Lara Johnston",
+  "license": "ISC"
+}
